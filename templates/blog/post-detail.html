@@ -1,8 +1,11 @@
 {% extends "base.html" %}
-{% load blog_extras %}
+{% load blog_extras crispy_forms_tags %}
 
 {% block content %}
 <h2>{{ post.title }}</h2>
+
+{% include "blog/post-comments.html" %}
+
 {% row %}
   {% col %}
     {% recent_posts post %}

@@ -1,0 +1,31 @@
+{% load blog_extras crispy_forms_tags crispy_forms_filters %}
+
+<h4>Comments</h4>
+{% for comment in post.comments.all %}
+    {% row "border-top pt-2" %}
+        {% col %}
+            <h5>Posted by {{ comment.creator }} at {{ comment.created_at|date:"Y-m-d" }}</h5>
+        {% endcol %}
+    {% endrow %}
+    {% row "border-bottom" %}
+        {% col %}
+            <p>{{ comment.content }}</p>
+        {% endcol %}
+    {% endrow %}
+    {% empty %}
+        {% row %}
+            {% col %}
+                <p>No comments</p>
+            {% endcol %}
+        {% endrow %}
+{% endfor %}
+
+{% if request.user.is_active %}
+    {% row "mt-4" %}
+        {% col %}
+            <h4>Add Comment</h4>
+            {% crispy comment_form %}
+
+        {% endcol %}
+    {% endrow %}
+{% endif %}
